@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Investir{% endblock %}
+
+{% block body %}
+
+<h1>Lista de investimentos realizados</h1>
+
+<table style="flex: 1 1 1 30%; border: 1px solid #ccc; padding: 20px;">
+    <tr>
+        <th>Saldo Inicial</th>
+        <th>Data Investimento</th> 
+        <th>Resgatar</th> 
+    </tr>
+
+    {% for investimento in investimentos %}
+        <tr>
+            <td>{{ investimento.saldoinicial }}</td>
+            <td>{{ investimento.datainvestimento|date("d/m/Y") }}</td>
+            <td>
+                {{ form_start(resgatarInvestimento[investimento.id]) }}
+                    {{ form_widget(resgatarInvestimento[investimento.id]) }}
+                    <input type="hidden" name="investimento_id" value="{{ investimento.id }}">
+                    <button type="submit">Resgatar</button>
+                {{ form_end(resgatarInvestimento[investimento.id]) }}
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

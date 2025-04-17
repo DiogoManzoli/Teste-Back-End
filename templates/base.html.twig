@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Investimento!{% endblock %}</title>
+        {% block stylesheets %}
+        {% endblock %}
+
+        {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% endblock %}
+    </head>
+    <body>
+
+    <nav class="">
+        <div>
+            <a href="/investimento">Realizar Investimento</a>
+            <a href="/resgatar/investimento">Resgatar</a>
+            <a href="/logout">Sair</a>
+        </div>
+    </nav>
+
+    <div class="">
+        {% block body %}{% endblock %}
+    </div>
+
+</body>
+</html>

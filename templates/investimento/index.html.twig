@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Investir{% endblock %}
+
+
+
+{% block body %}
+
+
+<h1>Investimentos de renda fixa</h1>
+
+{% for item in produtosForm %}
+
+ <div style="display: flex; gap: 20px; align-items: center; margin-bottom: 40px;">
+    {% set form = item.form %}
+    {% set produto = item.produto %}
+
+    {{ form_start(form) }}
+        <div style="display: flex; flex-direction: column;">
+            {{ form_row(form.saldo_inicial) }}
+        </div>
+        <div style="display: flex; flex-direction: column;">
+            {{ form_row(form.data_investimento) }}
+        </div>
+        <div>
+            <button type="submit">Investir</button>
+        </div>
+    {{ form_end(form) }}
+
+     <div style="display: flex; gap:25px;">
+        <p style="margin:0px; padding:0px;">Rentabilidade/Juros: </p>
+        <p style="margin:0px; padding:0px;" id="">Saldo do investimento: </p>
+        <p style="margin:0px; padding:0px;">Ganhos: </p>
+    </div>
+</div>
+
+   
+{% endfor %}
+
+{% endblock %}
