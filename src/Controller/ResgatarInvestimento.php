@@ -21,7 +21,7 @@ final class ResgatarInvestimento extends AbstractController
         $this->em = $EntityManager;
     }
     
-    #[Route('/resgatar/investimento/{slug?}', name: 'resgatar_investimentos')]
+    #[Route('/resgatar/{slug?}', name: 'resgatar_investimentos')]
     public function resgatar(Request $request, $slug = null): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -62,8 +62,8 @@ final class ResgatarInvestimento extends AbstractController
     
                 $taxa = 0.0052;
                 $montante = $investimento->getSaldoInicial() * (1 + $taxa) ** $mesesPassados;
-                $ganhos = $montante - $investimento->getSaldoInicial();
-    
+                $ganhos = round($montante - $investimento->getSaldoInicial(), 2);
+                
                 if ($anosPassados < 1) {
                     $imposto = $ganhos * 0.225;
                 } elseif ($anosPassados < 2) {
@@ -71,15 +71,15 @@ final class ResgatarInvestimento extends AbstractController
                 } else {
                     $imposto = $ganhos * 0.15;
                 }
-    
                 $saldoFinalComImposto = $montante - $imposto;
-    
+                
                 /** @var Resgate $resgate */
                 $resgate = $form->getData();
                 $resgate->setIdUser($this->getUser());
                 $resgate->setProdutoInvestimento($investimento->getProdutoInvestimento());
                 $resgate->setSaldoFinalComImposto($saldoFinalComImposto);
-    
+                
+                //dd([$montante, $ganhos, $imposto, $saldoFinalComImposto, $resgate]);
                 $this->em->persist($resgate);
                 $this->em->remove($investimento);
                 $this->em->flush();

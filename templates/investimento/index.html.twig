@@ -2,10 +2,7 @@
 
 {% block title %}Investir{% endblock %}
 
-
-
 {% block body %}
-
 
 <h1>Investimentos de renda fixa</h1>
 
@@ -16,6 +13,7 @@
     {% set produto = item.produto %}
 
     {{ form_start(form) }}
+    {{produto.nomeInvestimento}}
         <div style="display: flex; flex-direction: column;">
             {{ form_row(form.saldo_inicial) }}
         </div>
@@ -23,18 +21,26 @@
             {{ form_row(form.data_investimento) }}
         </div>
         <div>
-            <button type="submit">Investir</button>
+            {{ form_row(form.simular_investimento) }}
         </div>
     {{ form_end(form) }}
 
-     <div style="display: flex; gap:25px;">
-        <p style="margin:0px; padding:0px;">Rentabilidade/Juros: </p>
-        <p style="margin:0px; padding:0px;" id="">Saldo do investimento: </p>
-        <p style="margin:0px; padding:0px;">Ganhos: </p>
-    </div>
 </div>
 
-   
+{% endfor %}
+
+{% if simulacoes is defined %}
+    <div style="display: flex; gap:25px;">
+        <p style="margin:0px; padding:0px;">Saldo Final: {{ simulacoes.saldoFinal|default('') }} </p>
+        <p style="margin:0px; padding:0px;">Ganhos: {{ simulacoes.ganhos|default('') }} </p>
+    </div>
+{% endif %}
+
+{% for simulacao in app.flashes('simulacoes') %}
+    <div style="display: flex; gap:25px;">
+        <p style="margin:0px; padding:0px;">Saldo Final: {{ simulacao.saldoFinal|default('') }} </p>
+        <p style="margin:0px; padding:0px;">Ganhos: {{ simulacao.ganhos|default('') }} </p>
+    </div>
 {% endfor %}
 
 {% endblock %}

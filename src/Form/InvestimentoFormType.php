@@ -3,9 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Investimento;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -33,8 +34,13 @@ class InvestimentoFormType extends AbstractType
                     'message' => 'A data não pode ser no futuro.',
                 ]),
             ],
+    ])
+    ->add('submit', SubmitType::class, [
+        'label' => 'Investir',
+    ])
+    ->add('simular_investimento', SubmitType::class, [
+        'label' => 'Simular',
     ]);
-
     }
 
     public function configureOptions(OptionsResolver $resolver): void
