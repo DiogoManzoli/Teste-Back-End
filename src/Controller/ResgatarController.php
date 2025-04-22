@@ -22,7 +22,7 @@ final class ResgatarController extends AbstractController
         $this->em = $EntityManager;
     }
     
-    #[Route('/resgatar/{slug?}', name: 'resgatar_investimentos')]
+    #[Route('/resgatar', name: 'resgatar_investimentos')]
     public function resgatar(Request $request, PaginatorInterface $paginator): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -36,7 +36,7 @@ final class ResgatarController extends AbstractController
         foreach ($investimentos as $investimento) {
             $resgate = new Resgate();
             $form = $this->createForm(ResgateFormType::class, $resgate, [
-                'action' => $this->generateUrl('resgatar_investimentos'),
+                'action' => $this->generateUrl('resgatar_investimentos', ['page' => $page]),
             ]);
             $forms[$investimento->getId()] = $form;
         }
@@ -52,7 +52,6 @@ final class ResgatarController extends AbstractController
                 $investimento = $this->investimentoRepository->find($investimentoId);
     
                 if (!$investimento) {
-                    $this->addFlash('error', 'Investimento não encontrado!');
                     return $this->redirectToRoute('resgatar_investimentos');
                 }
     
@@ -86,8 +85,6 @@ final class ResgatarController extends AbstractController
                 $this->em->persist($resgate);
                 $this->em->remove($investimento);
                 $this->em->flush();
-    
-                $this->addFlash('success', 'Investimento resgatado com sucesso!');
                 return $this->redirectToRoute('resgatar_investimentos');
             }
         }
