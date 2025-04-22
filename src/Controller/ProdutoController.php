@@ -61,14 +61,15 @@ final class ProdutoController extends AbstractController
                         default => $ganhos * 0.15,
                     };
 
-                    $saldoFinalComImposto = $montante - $imposto;
-                    
+                    $saldoFinalComImposto = round($montante - $imposto, 2);
+
                     $this->addFlash('simulacoes', [
                         'saldoFinal' => $saldoFinalComImposto,
                         'ganhos' => $ganhos,
                         'produtoName' => $produto->getNomeInvestimento(),
-                        'importo' => $imposto,
+                        'imposto' => $imposto,
                     ]);
+                    //dd($simulacoes);
                     return $this->redirectToRoute('app_investimento',['simulacoes'=> $simulacoes]);
                 }
 
@@ -78,6 +79,7 @@ final class ProdutoController extends AbstractController
                     return $this->redirectToRoute('app_investimento');
                 }
             }
+
             $forms[] = [
                 'produto' => $produto,
                 'form' => $form->createView(),

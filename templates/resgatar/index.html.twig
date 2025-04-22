@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Investir{% endblock %}
+{% block title %}Resgatar{% endblock %}
 
 {% block body %}
 
@@ -24,8 +24,9 @@
                     <button type="submit">Resgatar</button>
                 {{ form_end(resgatarInvestimento[investimento.id]) }}
             </td>
-        </tr>
     {% endfor %}
+        </tr>
 </table>
+    {{knp_pagination_render(investimentos)}}
 
 {% endblock %}

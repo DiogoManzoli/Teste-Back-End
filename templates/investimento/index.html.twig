@@ -38,8 +38,9 @@
 
 {% for simulacao in app.flashes('simulacoes') %}
     <div style="display: flex; gap:25px;">
-        <p style="margin:0px; padding:0px;">Saldo Final: {{ simulacao.saldoFinal|default('') }} </p>
+        <p style="margin:0px; padding:0px;">Saldo final considerando o imposto: {{ simulacao.saldoFinal|default('') }} </p>
         <p style="margin:0px; padding:0px;">Ganhos: {{ simulacao.ganhos|default('') }} </p>
+        <p style="margin:0px; padding:0px;">Ganhos: {{ simulacao.imposto|default('') }} </p>
     </div>
 {% endfor %}
 

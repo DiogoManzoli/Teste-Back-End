@@ -6,12 +6,13 @@ use App\Entity\Resgate;
 use App\Form\ResgateFormType;
 use App\Repository\InvestimentoRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-final class ResgatarInvestimento extends AbstractController
+final class ResgatarController extends AbstractController
 {
     private InvestimentoRepository $investimentoRepository;
     private EntityManagerInterface $em;
@@ -22,11 +23,13 @@ final class ResgatarInvestimento extends AbstractController
     }
     
     #[Route('/resgatar/{slug?}', name: 'resgatar_investimentos')]
-    public function resgatar(Request $request, $slug = null): Response
+    public function resgatar(Request $request, PaginatorInterface $paginator): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
-        
+
+        $page = $request->query->getInt('page',1);
         $investimentos = $this->investimentoRepository->findAll(); 
+        $investimentos = $paginator->paginate($investimentos, $page, 4);        
         $forms = [];
     
         // Cria um formulário para cada investimento
