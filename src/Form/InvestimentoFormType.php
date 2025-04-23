@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\DTO\InvestimentoDTO;
 use App\Entity\Investimento;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -46,7 +47,7 @@ class InvestimentoFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Investimento::class,
+            'data_class' => InvestimentoDTO::class,
         ]);
     }
 }
