@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-class Resgatar2Controller extends AbstractController
+class ResgatarController extends AbstractController
 {
     #[Route('/resgatar', name: 'resgatar_investimentos')]
     public function resgatar(Request $request, PaginatorInterface $paginator, ResgatarService $resgatarService): Response

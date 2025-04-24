@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-final class Produto2Controller extends AbstractController
+final class ProdutoController extends AbstractController
 {
 
     #[Route('/investimento', name: 'app_investimento')]
